@@ -144,6 +144,8 @@ public:
 
     HWND winID(){return m_hwnd;}
 
+    void setWindowTitle(wchar_t* title);
+
     void DrawImage(wchar_t* lpszFilePath,int x,int y,int w,int h);
 
     static T* m_pd3dwindowinstance;
@@ -250,6 +252,12 @@ void QD3D11WINDOW<T>::show()
 
 
 template<class T>
+void QD3D11WINDOW<T>:: setWindowTitle(wchar_t* title)
+{
+    ::SetWindowTextW(m_hwnd,title);
+}
+
+template<class T>
 void QD3D11WINDOW<T>::hide()
 {
     ::ShowWindow(m_hwnd,SW_HIDE);
@@ -259,9 +267,9 @@ void QD3D11WINDOW<T>::hide()
 template<class T>
 bool QD3D11WINDOW<T>::created3dwindow()
 {
-    WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"ImGui Example", NULL };
+    WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"QTD3D11WINDOW", NULL };
     ::RegisterClassEx(&wc);
-    m_hwnd = ::CreateWindow(wc.lpszClassName, L"Dear ImGui DirectX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+    m_hwnd = ::CreateWindow(wc.lpszClassName, L"QT D3D11 WINDOW", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
     return true;
 }
 
